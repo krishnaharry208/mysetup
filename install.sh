@@ -112,5 +112,5 @@ bash scripts/usenala
 echo ""
 echo "========================================================="
 echo "Installation is complete!"
-echo -e "Since no login manager is set, type '\e[1;32mstartx\e[0m' to launch your environment."
+echo "Since no login manager is set, type 'startx' to launch your environment."
 echo "========================================================="
