@@ -42,6 +42,7 @@ fi
 # ==============================
 cp .Xresources /home/$username/
 cp .Xnord /home/$username/
+cp .xinitrc /home/$username/
 
 # Fix ownership BEFORE xrdb
 chown -R $username:$username /home/$username
@@ -53,7 +54,7 @@ sudo -u $username xrdb -merge /home/$username/.Xresources
 # Install essential packages
 # ==============================
 nala install -y \
-feh bspwm sxhkd rofi polybar picom lxpolkit \
+feh bspwm sxhkd rofi polybar picom lxpolkit alacritty \
 x11-xserver-utils unzip yad wget pulseaudio pavucontrol \
 flameshot psmisc lxappearance papirus-icon-theme fonts-noto-color-emoji
 
