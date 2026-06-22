@@ -1,0 +1,44 @@
+#!/bin/bash
+if [ -n "$SUDO_USER" ]; then
+  username="$SUDO_USER"
+else
+  username=$(id -nu 1000 2>/dev/null || echo "$USER")
+fi
+# Configure bash to use nala wrapper instead of apt
+usenala="/home/$username/.use-nala"
+rusenala="/root/.use-nala"
+ubashrc="/home/$username/.bashrc"
+rbashrc="/root/.bashrc"
+if [ ! -f "$usenala" ]; then
+cat << \EOF > "$usenala"
+apt() {
+  command nala "$@"
+}
+sudo() {
+  if [ "$1" = "apt" ]; then
+    shift
+    command sudo nala "$@"
+  else
+    command sudo "$@"
+  fi
+}
+EOF
+cat << EOF >> "$ubashrc"
+if [ -f "$usenala" ]; then
+        . "$usenala"
+fi
+EOF
+fi
+
+if [ ! -f "$rusenala" ]; then
+cat << \EOF > "$rusenala"
+apt() {
+  command nala "$@"
+}
+EOF
+cat << EOF >> "$rbashrc"
+if [ -f "$rusenala" ]; then
+        . "$rusenala"
+fi
+EOF
+fi
