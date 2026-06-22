@@ -108,3 +108,9 @@ rm -rf Nordzy-cursors
 # ==============================
 bash scripts/changeinterface
 bash scripts/usenala
+
+echo ""
+echo "========================================================="
+echo "Installation is complete!"
+echo "Since no login manager is set, type 'startx' to launch your environment."
+echo "========================================================="
