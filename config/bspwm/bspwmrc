@@ -64,13 +64,22 @@ bspc rule -a Discord desktop='^6'
 bspc rule -a synergy desktop='^9'
 
 #Auto-Start
+# Save currently focused desktop so a reload doesn't jump you to desktop 1
+CURRENT_DESKTOP=$(bspc query -D -d focused --names 2>/dev/null)
+
 bspc desktop -f ^9
 variety &
 sleep 0.50
 urxvtc &
 lxpolkit &
 picom --config "$HOME/.config/bspwm/picom.conf" &
-bspc desktop -f ^1
+
+# Restore previous desktop on reload, or go to desktop 1 on fresh start
+if [ -n "$CURRENT_DESKTOP" ]; then
+    bspc desktop -f "$CURRENT_DESKTOP"
+else
+    bspc desktop -f ^1
+fi
 
 #--------------------------
 xrdb -merge ~/.Xresources &
